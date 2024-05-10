@@ -1,30 +1,74 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+//simport {Card, Button} from 'react-bootstrap';
 
 function App() {
+  const [uploadedImgPath,setImgPath] = useState('');
+
+  function updateImgPath(e){
+    console.log(e.target.value)
+  }
+  function resetImgPath(){
+    setImgPath('');
+  }
+  function submitImagePost(imgSrc){
+
+  }
+
+  function imagePost(imgSrc, id){
+    return(
+      <div class='container'>
+        <h2>This is Post {id}</h2>no
+        <div class='content'>
+          <img clas='img' src={imgSrc}/>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="App">
-      <header>
-        <nav id='navbar'>
-            <h1>Art Website</h1>
-            <h2>A Trustworthy Place to Submit Your Art</h2>
-        </nav>
+      <header id='artHeader'>
+        
+            <h2>Art Website</h2>
+            <h3>A Trustworthy Place to Submit Your Art</h3>
+     
       </header>
-      <main>
-      <div>
-            <p>Submit your image here</p>
-            <input type='file' required='' name='submit'></input>
-      </div>
+      <main id='artMainBody'>
+
+        <div id='submitBoxContainer' class='container'>
+          {/*actual submit form*/}
+          <div id='submitBox'>
+              <h3>Submit your image here</h3>
+              <div>
+                <h4>Requirements</h4>
+                <ul>
+                  <li>Must be this </li>
+                </ul>
+              </div>
+              <form>
+                <div id='uploadfile'>
+                    <input type='file' 
+                    value={uploadedImgPath}
+                    onChange={updateImgPath}
+                    accept='image/png, image/jpg, image/wbep' 
+                    />
+                </div>
+                <div>
+                  <input type='button'
+                  //onClick={submitImagePost(uploadedImgPath)}
+                  value='Submit Your Art! <3'/>
+                </div>
+              </form>
+          </div>
+
+        </div>
+        <section id='postDisplay'> 
+          
+        </section>
       </main>
     </div>
   );
 }
-function imagePost(imgSrc, id){
-  return(
-    <div>
-      <image src={imgSrc}/>
-      <p>This is Post {id}</p>
-    </div>
-  )
-}
+
+
 export default App;
