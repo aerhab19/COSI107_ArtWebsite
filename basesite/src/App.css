@@ -56,24 +56,35 @@
   margin: auto auto;
   background-color: #444;
 }
-#submitBox input[type=button]{
+#submitBox input[type=submit]{
   background-color: #333;
   padding: 16px 32px;
   text-decoration: none;
 }
 #artMainBody{
-  background-color: #009;
+  background-color: #00a2e8;
   margin: auto;
   padding: 10px;
   width:85%;
   height:1280px;
 }
 body{
-  background-color: #00f;
+  background-color: #005e89;
 }
 #artHeader {
   background-color: #f00;
   padding: 10px;
   position: sticky;
   margin-bottom: 10px;
+}
+.post{
+  background-color: #555;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  padding: auto;
+  margin: auto 0;
+}
+.postImg{
+  max-height: 400px;
 }

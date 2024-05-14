@@ -1,30 +1,41 @@
 import './App.css';
-import { useState } from 'react';
-//simport {Card, Button} from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import ImagePostTemplate from './imagePostTemplate';
+
 
 function App() {
-  const [uploadedImgPath,setImgPath] = useState('');
 
-  function updateImgPath(e){
-    console.log(e.target.value)
-  }
-  function resetImgPath(){
-    setImgPath('');
-  }
+  const [imgPostArr, setImgPostArr] = useState([]);
+
+  /*
   function submitImagePost(imgSrc){
+    const head = imgSrc.split('.').pop();
+    fetch('/uploadImg',{
+      method: 'POST',
+      headers:{
+        'Content-Type' : 'image/'+head,
+      },
+      body: imgSrc
+    }).then(res => {
+        
+        console.log(mgSrc+'\n'+res.status)
+    })
+  }*/
 
-  }
+  
+  useEffect(()=>{
+    fetch('/showAll',
+    {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setImgPostArr(data)
+    })
+    },[]);
 
-  function imagePost(imgSrc, id){
-    return(
-      <div class='container'>
-        <h2>This is Post {id}</h2>no
-        <div class='content'>
-          <img clas='img' src={imgSrc}/>
-        </div>
-      </div>
-    )
-  }
+
   return (
     <div className="App">
       <header id='artHeader'>
@@ -45,25 +56,34 @@ function App() {
                   <li>Must be this </li>
                 </ul>
               </div>
-              <form>
-                <div id='uploadfile'>
+              <form action='/uploadImg' method='POST' encType="multipart/form-data" id='uploadfile'>
                     <input type='file' 
-                    value={uploadedImgPath}
-                    onChange={updateImgPath}
-                    accept='image/png, image/jpg, image/wbep' 
+                      name='imgInput'
+                      onInput={(e)=>{
+                        
+                        console.log(e.target.files[0].name+' submitted')  
+                      }}
+                      accept='.png, .jpg, .webp' 
                     />
-                </div>
-                <div>
-                  <input type='button'
-                  //onClick={submitImagePost(uploadedImgPath)}
+                  <input type='submit'
                   value='Submit Your Art! <3'/>
-                </div>
               </form>
           </div>
 
         </div>
         <section id='postDisplay'> 
-          
+       <ImagePostTemplate imageURL='images\\Loonwatermark.webp'/>
+          {
+           imgPostArr.map(imgPost =>{
+            return (
+              <ImagePostTemplate 
+              id={imgPost.id}
+              imageURL={imgPost.imageURL}
+              />
+            )}
+          )
+            
+          }
         </section>
       </main>
     </div>
